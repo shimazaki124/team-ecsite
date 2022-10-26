@@ -28,31 +28,19 @@ public class UserController {
 		return "register_user";
 	}
 	
-	//重複確認
 	@RequestMapping("/duplicatedUserName")
 	@ResponseBody
 	public boolean duplicatedUserName(@RequestBody UserForm f) {
 		int count = mstUserMapper.findCountByUserName(f.getUserName());
-		
-		if (count > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return count > 0;
 	}
-	
-	//ユーザー登録確認
+
 	@RequestMapping("/register")
 	@ResponseBody
 	public boolean register(@RequestBody UserForm f) {
 		MstUser user = new MstUser(f);
-		
 		int count = mstUserMapper.insert(user);
-		
-		if (count > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return count > 0;
 	}
+
 }
